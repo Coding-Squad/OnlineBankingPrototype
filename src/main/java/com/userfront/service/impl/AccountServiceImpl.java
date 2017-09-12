@@ -15,10 +15,11 @@ import com.userfront.domain.PrimaryTransaction;
 import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.SavingsTransaction;
 import com.userfront.domain.User;
+import com.userfront.service.AccountService;
 import com.userfront.service.UserService;
 
 @Service
-public class AccountServiceImpl {
+public class AccountServiceImpl implements AccountService{
 
 
     private static int nextAccountNumber = 11223145;

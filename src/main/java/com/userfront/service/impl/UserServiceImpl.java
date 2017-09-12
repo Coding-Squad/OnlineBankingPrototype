@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
+    @Autowired
     private AccountService accountService;
 	
 	public void save(User user) {
