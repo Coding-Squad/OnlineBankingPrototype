@@ -95,5 +95,9 @@ public class UserServiceImpl implements UserService{
 
         return false;
     }
+    
+    public User saveUser(User user) {    	
+    	return userDao.save(user);    	
+    }
 	
 }
