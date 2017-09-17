@@ -15,19 +15,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.userfront.domain.security.Authority;
-import com.userfront.domain.security.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.userfront.domain.security.Authority;
+import com.userfront.domain.security.UserRole;
 
 @Entity
-public class User implements UserDetails {
+public class User implements UserDetails{
 
-	private static final long serialVersionUID = -5269822550888855768L;
-	
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId", nullable = false, updatable = false)
     private Long userId;
@@ -40,7 +38,7 @@ public class User implements UserDetails {
     private String email;
     private String phone;
 
-    private boolean enabled = true;
+    private boolean enabled=true;
 
     @OneToOne
     private PrimaryAccount primaryAccount;

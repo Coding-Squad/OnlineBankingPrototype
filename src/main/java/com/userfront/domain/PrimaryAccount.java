@@ -15,57 +15,51 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class PrimaryAccount {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private int accountNumber;
     private BigDecimal accountBalance;
-    
-    
+
     @OneToMany(mappedBy = "primaryAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<PrimaryTransaction> primaryTransactionList;
-    
-    public PrimaryAccount() {}
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public int getAccountNumber() {
-		return accountNumber;
-	}
+    public int getAccountNumber() {
+        return accountNumber;
+    }
 
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
-	}
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
-	public BigDecimal getAccountBalance() {
-		return accountBalance;
-	}
+    public BigDecimal getAccountBalance() {
+        return accountBalance;
+    }
 
-	public void setAccountBalance(BigDecimal accountBalance) {
-		this.accountBalance = accountBalance;
-	}
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.accountBalance = accountBalance;
+    }
 
-	public List<PrimaryTransaction> getPrimaryTransactionList() {
-		return primaryTransactionList;
-	}
+    public List<PrimaryTransaction> getPrimaryTransactionList() {
+        return primaryTransactionList;
+    }
 
-	public void setPrimaryTransactionList(List<PrimaryTransaction> primaryTransactionList) {
-		this.primaryTransactionList = primaryTransactionList;
-	}
+    public void setPrimaryTransactionList(List<PrimaryTransaction> primaryTransactionList) {
+        this.primaryTransactionList = primaryTransactionList;
+    }
 
-	@Override
-	public String toString() {
-		return "PrimaryAccount [id=" + id + ", accountNumber=" + accountNumber + ", accountBalance=" + accountBalance
-				+ ", primaryTransactionList=" + primaryTransactionList + "]";
-	}
-    
-    
+
 }
+
+
+

@@ -24,39 +24,38 @@ import com.userfront.service.UserService;
 public class AccountController {
 	
 	@Autowired
-	private UserService userService;
+    private UserService userService;
 	
-
 	@Autowired
 	private AccountService accountService;
 	
 	@Autowired
 	private TransactionService transactionService;
 	
-	
 	@RequestMapping("/primaryAccount")
-	public String primaryAccount(Model model, Principal principal ) {
+	public String primaryAccount(Model model, Principal principal) {
 		List<PrimaryTransaction> primaryTransactionList = transactionService.findPrimaryTransactionList(principal.getName());
-				
+		
 		User user = userService.findByUsername(principal.getName());
-		PrimaryAccount primaryAccount = user.getPrimaryAccount();
-		model.addAttribute("primaryAccount", primaryAccount);
+        PrimaryAccount primaryAccount = user.getPrimaryAccount();
+
+        model.addAttribute("primaryAccount", primaryAccount);
         model.addAttribute("primaryTransactionList", primaryTransactionList);
 		
 		return "primaryAccount";
 	}
-	
+
 	@RequestMapping("/savingsAccount")
-	public String savingsAccount(Model model, Principal principal) {
+    public String savingsAccount(Model model, Principal principal) {
 		List<SavingsTransaction> savingsTransactionList = transactionService.findSavingsTransactionList(principal.getName());
-		
-		User user = userService.findByUsername(principal.getName());
-		SavingsAccount savingsAccount = user.getSavingsAccount();
-		model.addAttribute("savingsAccount", savingsAccount);
+        User user = userService.findByUsername(principal.getName());
+        SavingsAccount savingsAccount = user.getSavingsAccount();
+
+        model.addAttribute("savingsAccount", savingsAccount);
         model.addAttribute("savingsTransactionList", savingsTransactionList);
-		
-		return "savingsAccount";
-	}
+
+        return "savingsAccount";
+    }
 	
 	@RequestMapping(value = "/deposit", method = RequestMethod.GET)
     public String deposit(Model model) {
@@ -68,7 +67,7 @@ public class AccountController {
 
     @RequestMapping(value = "/deposit", method = RequestMethod.POST)
     public String depositPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
-    	accountService.deposit(accountType, Double.parseDouble(amount), principal);
+        accountService.deposit(accountType, Double.parseDouble(amount), principal);
 
         return "redirect:/userFront";
     }
@@ -87,6 +86,4 @@ public class AccountController {
 
         return "redirect:/userFront";
     }
-
-
 }

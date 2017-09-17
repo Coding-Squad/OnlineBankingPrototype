@@ -1,6 +1,5 @@
 package com.userfront.service.impl;
 
-
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
@@ -20,10 +19,9 @@ import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
 
 @Service
-public class AccountServiceImpl implements AccountService{
-
-
-    private static int nextAccountNumber = 11223145;
+public class AccountServiceImpl implements AccountService {
+	
+	private static int nextAccountNumber = 11223145;
 
     @Autowired
     private PrimaryAccountDao primaryAccountDao;
@@ -36,7 +34,6 @@ public class AccountServiceImpl implements AccountService{
     
     @Autowired
     private TransactionService transactionService;
-    
 
     public PrimaryAccount createPrimaryAccount() {
         PrimaryAccount primaryAccount = new PrimaryAccount();
@@ -48,16 +45,8 @@ public class AccountServiceImpl implements AccountService{
         return primaryAccountDao.findByAccountNumber(primaryAccount.getAccountNumber());
     }
 
-    public SavingsAccount createSavingsAccount() {
-        SavingsAccount savingsAccount = new SavingsAccount();
-        savingsAccount.setAccountBalance(new BigDecimal(0.0));
-        savingsAccount.setAccountNumber(accountGen());
-
-        savingsAccountDao.save(savingsAccount);
-
-        return savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());
-    }
-
+    
+    
     public void deposit(String accountType, double amount, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
@@ -70,7 +59,7 @@ public class AccountServiceImpl implements AccountService{
 
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Deposit to Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
             transactionService.savePrimaryDepositTransaction(primaryTransaction);
-
+            
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
@@ -81,7 +70,7 @@ public class AccountServiceImpl implements AccountService{
             transactionService.saveSavingsDepositTransaction(savingsTransaction);
         }
     }
-
+    
     public void withdraw(String accountType, double amount, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
@@ -104,10 +93,26 @@ public class AccountServiceImpl implements AccountService{
             transactionService.saveSavingsWithdrawTransaction(savingsTransaction);
         }
     }
-
+    
     private int accountGen() {
         return ++nextAccountNumber;
     }
 
+
+
+	@Override
+	public SavingsAccount createSavingsAccount() {
+
+        SavingsAccount savingsAccount = new SavingsAccount();
+        savingsAccount.setAccountBalance(new BigDecimal(0.0));
+        savingsAccount.setAccountNumber(accountGen());
+
+        savingsAccountDao.save(savingsAccount);
+
+        return savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());
+    
+	}
+
+	
 
 }
